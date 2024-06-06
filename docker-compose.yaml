@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+  db:
+    image: mcr.microsoft.com/azure-sql-edge
+    container_name: sql
+    environment:
+      ACCEPT_EULA: "1"
+      MSSQL_SA_PASSWORD: "EduP@ssWord"
+      MSSQL_PID: "Developer"
+    ports:
+      - "6700:1433"
+    volumes:
+      - data:/var/lib/mssql
+    networks:
+      - my_network
+
+  frontend:
+    image: edujimcue/tienda-karate-front:latest
+    ports:
+      - "8081:8080"
+    networks:
+      - my_network
+
+  app:
+    image: edujimcue/tienda-karate-back:latest
+    ports:
+      - "5224:80"
+    depends_on:
+      - db
+    environment:
+      - variable=valorAdjudicado
+      - ConnectionStrings__DefaultConnection=Server=sql;Database=sql;User Id=sa;Password=EduP@ssWord;TrustServerCertificate=True;
+    networks:
+      - my_network
+
+volumes:
+  data:
+
+networks:
+  my_network:
+    driver: bridge
