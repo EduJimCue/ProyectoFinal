@@ -13,7 +13,7 @@ RUN dotnet publish -c Release -o out
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
 ENV variable=valorAdjudicado
 WORKDIR /app
-EXPOSE 5224
+EXPOSE 80
 COPY --from=build-env /app/out .
 VOLUME [ "/volume" ]
 ENTRYPOINT ["dotnet", "TiendaKarate.dll"]
