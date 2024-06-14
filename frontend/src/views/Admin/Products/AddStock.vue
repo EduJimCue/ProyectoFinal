@@ -20,7 +20,7 @@
           </div>
           <div class="form-group">
             <label for="quantity">Cantidad:</label>
-            <input type="number" id="quantity" v-model.number="quantity" min="1" class="form-control">
+            <input type="number" id="quantity" v-model.number="quantity" min="0" class="form-control">
           </div>
           <button type="submit" class="btn btn-primary">Añadir Stock</button>
         </form>
