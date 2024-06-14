@@ -199,7 +199,7 @@ const store = new Vuex.Store({
   },
   actions: {
     fetchUser({commit}, { username, password }){
-        fetch(`http://localhost:5224/User/${username}/${password}`, {
+        fetch(`http://localhost/User/${username}/${password}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -225,7 +225,7 @@ const store = new Vuex.Store({
     commit('setUser', null )
     },
     addUser({ commit }, userData) {
-      fetch("http://localhost:5224/User", {
+      fetch("http://localhost/User", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -250,7 +250,7 @@ const store = new Vuex.Store({
       });
     },
     actualizeUser({ commit }, userData) {
-      fetch(`http://localhost:5224/User`, {
+      fetch(`http://localhost/User`, {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json'
@@ -260,13 +260,13 @@ const store = new Vuex.Store({
       commit('setUser', null)
     }, 
     fetchProducts({ commit }) {
-      fetch("http://localhost:5224/Product")
+      fetch("http://localhost/Product")
         .then(response => response.json())
         .then(response => commit('setAdminProducts', response));
     },
     async fetchProductDetail({ commit }, productId) {
       try {
-        const response = await fetch(`http://localhost:5224/Product/${productId}`);
+        const response = await fetch(`http://localhost/Product/${productId}`);
         const data = await response.json();
         commit('setProductDetail', data);
       } catch (error) {
@@ -274,12 +274,12 @@ const store = new Vuex.Store({
       }
     },
     fetchLastProducts({ commit }) {
-      fetch("http://localhost:5224/Product/LastFour")
+      fetch("http://localhost/Product/LastFour")
         .then(response => response.json())
         .then(response => commit('setLastFour', response));
     },
     fetchRecommendedProducts({ commit }) {
-      fetch("http://localhost:5224/Product/RandomFour")
+      fetch("http://localhost/Product/RandomFour")
         .then(response => response.json())
         .then(response => commit('setRandomFour', response));
     },
@@ -288,7 +288,7 @@ const store = new Vuex.Store({
         commit('clearProducts');
         return;
       }
-      const url = `http://localhost:5224/Product/partialName?partialName=${encodeURIComponent(partialName)}`;
+      const url = `http://localhost/Product/partialName?partialName=${encodeURIComponent(partialName)}`;
 
       fetch(url)
         .then(response => response.json())
@@ -300,7 +300,7 @@ const store = new Vuex.Store({
         });
     },
     addProduct({ commit }, productData) {
-      return fetch("http://localhost:5224/Product", {
+      return fetch("http://localhost/Product", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -314,7 +314,7 @@ const store = new Vuex.Store({
       });
     },
     actualizeProduct({ commit }, productData) {
-      fetch("http://localhost:5224/Product", {
+      fetch("http://localhost/Product", {
           method: `PUT`,
           headers: {
             "Content-type": "application/json",
@@ -327,7 +327,7 @@ const store = new Vuex.Store({
         })
     },
     deleteProduct({ commit }, productId) {
-      fetch(`http://localhost:5224/Product?Id=${productId}`, {
+      fetch(`http://localhost/Product?Id=${productId}`, {
         method: `DELETE`,
         headers: {
           "Content-type": "application/json"
@@ -339,12 +339,12 @@ const store = new Vuex.Store({
         })
     },
     fetchCategorys({ commit }) {
-      fetch("http://localhost:5224/Category/GetAllCategories")
+      fetch("http://localhost/Category/GetAllCategories")
         .then(response => response.json())
         .then(response => commit('setCategories', response));
     },
     deleteAttribute({ commit },{ attributeName, attributeId }) {
-      fetch(`http://localhost:5224/${attributeName}/Delete${attributeName}?Id=${attributeId}`, {
+      fetch(`http://localhost/${attributeName}/Delete${attributeName}?Id=${attributeId}`, {
         method: `DELETE`,
         headers: {
           "Content-type": "application/json"
@@ -356,7 +356,7 @@ const store = new Vuex.Store({
         })
     },
     addAttribute({ commit }, { attributeName, attributeData }) {
-      return fetch(`http://localhost:5224/${attributeName}/Post${attributeName}`, {
+      return fetch(`http://localhost/${attributeName}/Post${attributeName}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -370,7 +370,7 @@ const store = new Vuex.Store({
       });
     },
     actualizeAttribute({ commit }, { attributeName, attributeData }) {
-      fetch(`http://localhost:5224/${attributeName}/Put${attributeName}`, {
+      fetch(`http://localhost/${attributeName}/Put${attributeName}`, {
           method: `PUT`,
           headers: {
             "Content-type": "application/json",
@@ -383,7 +383,7 @@ const store = new Vuex.Store({
         })
     },
     fetchImages({ commit }) {
-      fetch("http://localhost:5224/S3Images/GetAllImages")
+      fetch("http://localhost/S3Images/GetAllImages")
         .then(response => response.json())
         .then(response => commit('setImages', response));
     },
@@ -391,7 +391,7 @@ const store = new Vuex.Store({
       try {
         const formData = new FormData();
         formData.append('file', file);
-        const response = await fetch('http://localhost:5224/S3Images/Upload', {
+        const response = await fetch('http://localhost/S3Images/Upload', {
           method: 'POST',
           body: formData
         });
@@ -406,7 +406,7 @@ const store = new Vuex.Store({
       }
     },
     deleteImage({ commit }, imageId) {
-      fetch(`http://localhost:5224/S3Images/Delete?imageId=${imageId}`, {
+      fetch(`http://localhost/S3Images/Delete?imageId=${imageId}`, {
         method: `DELETE`,
         headers: {
           "Content-type": "application/json"
@@ -418,17 +418,17 @@ const store = new Vuex.Store({
         })
     },
     fetchAges({ commit }) {
-      fetch("http://localhost:5224/Age/GetAllAges")
+      fetch("http://localhost/Age/GetAllAges")
         .then(response => response.json())
         .then(response => commit('setAges', response));
     },
     fetchColours({ commit }) {
-      fetch("http://localhost:5224/Colour/GetAllColours")
+      fetch("http://localhost/Colour/GetAllColours")
         .then(response => response.json())
         .then(response => commit('setColours', response));
     },
     fetchOtherColours({ commit },{ productName, colourId }) {
-      fetch(`http://localhost:5224/Product/GetSimilarProductsByFullNameAndDifferentColors?name=${productName}&ColourId=${colourId}`)
+      fetch(`http://localhost/Product/GetSimilarProductsByFullNameAndDifferentColors?name=${productName}&ColourId=${colourId}`)
           .then(response => {
               if (!response.ok) {
                   if (response.status === 404) {
@@ -446,7 +446,7 @@ const store = new Vuex.Store({
           });
     },
     fetchSimilarProducts({ commit }, productId ) {
-      fetch(`http://localhost:5224/Product/GetSimilarProducts?productId=${productId}`)
+      fetch(`http://localhost/Product/GetSimilarProducts?productId=${productId}`)
           .then(response => {
               if (!response.ok) {
                   if (response.status === 404) {
@@ -464,18 +464,18 @@ const store = new Vuex.Store({
           });
     },
     fetchSports({ commit }) {
-      fetch("http://localhost:5224/Sport/GetAllSports")
+      fetch("http://localhost/Sport/GetAllSports")
         .then(response => response.json())
         .then(response => commit('setSports', response));
     },
     fetchSizes({ commit }) {
-      fetch("http://localhost:5224/Size/GetAllSizes")
+      fetch("http://localhost/Size/GetAllSizes")
         .then(response => response.json())
         .then(response => commit('setSizes', response));
     },
     async fetchAvailableSizes({ commit }, productId) {
       try {
-        const response = await fetch(`http://localhost:5224/SizeProduct/GetSizesByProduct?productId=${productId}`);
+        const response = await fetch(`http://localhost/SizeProduct/GetSizesByProduct?productId=${productId}`);
         const data = await response.json();
         commit('setAvailableSizes', data);
       } catch (error) {
@@ -484,7 +484,7 @@ const store = new Vuex.Store({
     },
     async fetchAvailableStock({ commit }, { productId, sizeId }) {
       try {
-        const response = await fetch(`http://localhost:5224/SizeProduct/GetStock?productId=${productId}&sizeId=${sizeId}`);
+        const response = await fetch(`http://localhost/SizeProduct/GetStock?productId=${productId}&sizeId=${sizeId}`);
         const data = await response.json();
         commit('setAvailableStock', data);
         return data;
@@ -493,7 +493,7 @@ const store = new Vuex.Store({
       }
     },
     actualizeSizeProduct({ commit }, sizeProductData) {
-      fetch("http://localhost:5224/SizeProduct/PostSizeProduct", {
+      fetch("http://localhost/SizeProduct/PostSizeProduct", {
           method: `POST`,
           headers: {
             "Content-type": "application/json",
@@ -505,23 +505,23 @@ const store = new Vuex.Store({
         })
     },
     fetchGenders({ commit }) {
-      fetch("http://localhost:5224/Gender/GetAllGenders")
+      fetch("http://localhost/Gender/GetAllGenders")
         .then(response => response.json())
         .then(response => commit('setGenders', response));
     },
     fetchBrands({ commit }) {
-      fetch("http://localhost:5224/Brand/GetAllBrands")
+      fetch("http://localhost/Brand/GetAllBrands")
         .then(response => response.json())
         .then(response => commit('setBrands', response));
     },
     fetchTeams({ commit }) {
-      fetch("http://localhost:5224/Team/GetAllTeams")
+      fetch("http://localhost/Team/GetAllTeams")
         .then(response => response.json())
         .then(response => commit('setTeams', response));
     },
     verifyTeam({ commit }, { teamId, password }) {
       return new Promise((resolve, reject) => {
-        fetch(`http://localhost:5224/Team/VerifyTeamCredentials?teamId=${teamId}&password=${password}`, {
+        fetch(`http://localhost/Team/VerifyTeamCredentials?teamId=${teamId}&password=${password}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'
@@ -544,7 +544,7 @@ const store = new Vuex.Store({
       });
     },
     fetchOtherImages({ commit }, productId) {
-      fetch(`http://localhost:5224/ImageProduct/GetImagesByProduct?productId=${productId}`)
+      fetch(`http://localhost/ImageProduct/GetImagesByProduct?productId=${productId}`)
           .then(response => {
               if (!response.ok) {
                   if (response.status === 404) {
@@ -563,7 +563,7 @@ const store = new Vuex.Store({
     },
 
     addSecondaryImage(_, productData) {
-      fetch("http://localhost:5224/ImageProduct/PostImageProduct", {
+      fetch("http://localhost/ImageProduct/PostImageProduct", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -573,7 +573,7 @@ const store = new Vuex.Store({
     },
 
     actualizeSecondaryImage({ commit },{productId, oldId, newId} ) {
-      fetch(`http://localhost:5224/ImageProduct/UpdateImage?productId=${productId}&oldImageId=${oldId}&newImageId=${newId}`, {
+      fetch(`http://localhost/ImageProduct/UpdateImage?productId=${productId}&oldImageId=${oldId}&newImageId=${newId}`, {
           method: `PUT`,
           headers: {
             "Content-type": "application/json",
@@ -596,7 +596,7 @@ const store = new Vuex.Store({
       }
       const queryString = new URLSearchParams(filteredFilters).toString();
 
-      fetch(`http://localhost:5224/Product/Filter?${queryString}`)
+      fetch(`http://localhost/Product/Filter?${queryString}`)
         .then(response => response.json())
         .then(data => {
           commit('setFilteredProducts',{ filteredProducts: data.products });
@@ -609,7 +609,7 @@ const store = new Vuex.Store({
 
     fetchTeamsProducts({ commit}, teamId) {
     
-      fetch(`http://localhost:5224/Product/Filter?TeamId=${teamId}`)
+      fetch(`http://localhost/Product/Filter?TeamId=${teamId}`)
         .then(response => response.json())
         .then(data => {
           commit('setFilteredProducts',{ filteredProducts: data.products });
@@ -639,7 +639,7 @@ const store = new Vuex.Store({
       try {
         const currentDate = new Date().toISOString();
         const userId = state.user.id; 
-        const orderResponse = await fetch(`http://localhost:5224/Order/PostOrder`, {
+        const orderResponse = await fetch(`http://localhost/Order/PostOrder`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -662,7 +662,7 @@ const store = new Vuex.Store({
         });
   
         const sizeProductIds = await Promise.all(orderProducts.map(async orderProduct => {
-          const response = await fetch(`http://localhost:5224/SizeProduct/GetOneOrder?productId=${orderProduct.productId}&sizeId=${orderProduct.sizeId}`);
+          const response = await fetch(`http://localhost/SizeProduct/GetOneOrder?productId=${orderProduct.productId}&sizeId=${orderProduct.sizeId}`);
           const data = await response.json();
           return data.id;
         }));
@@ -676,7 +676,7 @@ const store = new Vuex.Store({
         });
   
         await Promise.all(orderProductsData.map(async orderProductData => {
-          await fetch(`http://localhost:5224/OrderProduct/PostOrderProduct`, {
+          await fetch(`http://localhost/OrderProduct/PostOrderProduct`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -694,13 +694,13 @@ const store = new Vuex.Store({
     async fetchUserOrders({ commit, state }) {
       try {
         const userId = state.user.id; 
-        const ordersResponse = await fetch(`http://localhost:5224/Order/GetOrdersByUser?userId=${userId}`);
+        const ordersResponse = await fetch(`http://localhost/Order/GetOrdersByUser?userId=${userId}`);
         const ordersData = await ordersResponse.json();
     
         const userOrders = [];
     
         for (const order of ordersData) {
-          const orderProductsResponse = await fetch(`http://localhost:5224/OrderProduct/GetProductsByOrder?orderId=${order}`);
+          const orderProductsResponse = await fetch(`http://localhost/OrderProduct/GetProductsByOrder?orderId=${order}`);
           const orderProductsData = await orderProductsResponse.json();
     
           const orderProducts = [];
@@ -708,15 +708,15 @@ const store = new Vuex.Store({
           for (const orderProduct of orderProductsData) {
             const sizeProductId = orderProduct.sizeProductId;
     
-            const sizeProductResponse = await fetch(`http://localhost:5224/SizeProduct/GetOneSizeProduct?Id=${sizeProductId}`);
+            const sizeProductResponse = await fetch(`http://localhost/SizeProduct/GetOneSizeProduct?Id=${sizeProductId}`);
             const sizeProductData = await sizeProductResponse.json();
             const productId = sizeProductData.productId;
             const sizeId = sizeProductData.sizeId;
   
-            const productResponse = await fetch(`http://localhost:5224/Product/${productId}`);
+            const productResponse = await fetch(`http://localhost/Product/${productId}`);
             const productData = await productResponse.json();
     
-            const sizeResponse = await fetch(`http://localhost:5224/Size/GetOneSize?Id=${sizeId}`);
+            const sizeResponse = await fetch(`http://localhost/Size/GetOneSize?Id=${sizeId}`);
             const sizeData = await sizeResponse.json();
     
             orderProducts.push({

@@ -1,4 +1,3 @@
-
 FROM node:16-alpine AS build
 RUN npm install -g http-server
 
@@ -8,7 +7,6 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-EXPOSE 8081
+EXPOSE 80
 
-CMD ["http-server", "dist"]
-RUN npm install -g http-server
+CMD ["http-server", "dist", "-p", "80"]

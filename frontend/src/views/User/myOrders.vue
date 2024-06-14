@@ -44,7 +44,13 @@ export default {
   methods: {
     calculateTotal(products) {
       return products.reduce((total, product) => total + (product.price * product.quantity), 0).toFixed(2);
+    },
+    fetchUserOrders() {
+      this.$store.dispatch('fetchUserOrders');
     }
+  },
+  created() {
+    this.fetchUserOrders();
   }
 };
 </script>
@@ -63,6 +69,7 @@ export default {
 h1 {
   font-size: 2rem;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 h2 {
@@ -71,6 +78,7 @@ h2 {
   background-color: #f7bc1a;
   padding: 10px;
   border-radius: 5px;
+  text-align: center;
 }
 
 .order-table {
@@ -78,16 +86,18 @@ h2 {
   border: 1px solid #ddd;
   border-radius: 5px;
   overflow: hidden;
+  width: 100%;
+  table-layout: fixed; 
+}
+
+.order-table th, .order-table td {
+  text-align: center;
+  vertical-align: middle;
 }
 
 .order-table th {
   background-color: #f0f0f0;
   font-weight: bold;
-  text-align: center;
-}
-
-.order-table td {
-  text-align: center;
 }
 
 .product-name, .product-quantity, .product-price, .product-size {
@@ -100,13 +110,27 @@ h2 {
 .product-name {
   text-align: left;
   padding-left: 10px;
+  width: 100%;
 }
 
-.product-price, .product-quantity, .product-size {
-  min-width: 80px;
-}
-
-.product-quantity {
+.product-quantity, .product-price, .product-size {
+  width: 100%;
   text-align: center;
+}
+
+.order-table th:nth-child(1), .order-table td:nth-child(1) {
+  width: 40%;
+}
+
+.order-table th:nth-child(2), .order-table td:nth-child(2) {
+  width: 20%;
+}
+
+.order-table th:nth-child(3), .order-table td:nth-child(3) {
+  width: 20%;
+}
+
+.order-table th:nth-child(4), .order-table td:nth-child(4) {
+  width: 20%; 
 }
 </style>
