@@ -198,8 +198,8 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    fetchUser({commit}, { username, password }){
-        fetch(`http://localhost/User/${username}/${password}`, {
+    fetchUser({ commit }, { username, password }) {
+      return fetch(`http://localhost/User/${username}/${password}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -210,22 +210,20 @@ const store = new Vuex.Store({
         })
       })
       .then(response => {
-          if (!response.ok) {
-            window.alert("User not found")
-          }
-          return response.json();
-        })
-        .then(response => {commit('setUser',response);
+        if (!response.ok) {
+          throw new Error("User not found");
+        }
+        return response.json();
       })
-      .catch (error => {
-        console.error(error);
-      })
+      .then(response => {
+        commit('setUser', response);
+      });
     },
     logout({ commit }) {
     commit('setUser', null )
     },
     addUser({ commit }, userData) {
-      fetch("http://localhost/User", {
+      return fetch("http://localhost/User", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -234,19 +232,12 @@ const store = new Vuex.Store({
       })
       .then(response => {
         if (!response.ok) {
-          return response.text().then(errorMessage => {
-            throw new Error(errorMessage);
-          });
+          throw new Error("Ya existe un usuario con ese nombre o email");
         }
         return response.json();
       })
       .then(response => {
         commit('addUser', response);
-      })
-      .catch(error => {
-      
-        window.alert(error.message);
-        console.error(error);
       });
     },
     actualizeUser({ commit }, userData) {

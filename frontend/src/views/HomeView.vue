@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="black">
-      <p>Echa un vistazo a nuestras novedades</p>
+      <p>Disfruta de nuestros mejores productos, al mejor precio a manos de los mejores especialistas</p>
     </div>
     <div class="carousel-container">
       <b-carousel
