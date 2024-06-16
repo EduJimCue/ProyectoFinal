@@ -1,12 +1,8 @@
 <template>
-    <div class="login">
-      <h1>Introduce your log in details</h1>
-      <b-form @submit="login" class="form-user">
-      <b-form-group
-        id="input-group-1"
-        label="Username:"
-        label-for="input-1"
-      >
+  <div class="login">
+    <h1>Introduce your log in details</h1>
+    <b-form @submit.prevent="login" class="form-user">
+      <b-form-group id="input-group-1" label="Username:" label-for="input-1">
         <b-form-input
           id="input-1"
           v-model="form.username"
@@ -26,41 +22,57 @@
       </b-form-group>
       <b-button type="submit" class="button">Send</b-button>
     </b-form>
-    </div>
-  </template>
-  <script>
-    export default {
-      data() {
-        return {
-          form:{
-            username:'',
-            password:'',
-          }
-        }
+    <b-alert v-if="error" variant="danger" show dismissible @dismissed="error = null" class="mt-3">
+      {{ error }}
+    </b-alert>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      form: {
+        username: '',
+        password: '',
       },
-      methods: {
-        login() {
-          event.preventDefault();
-          this.$store.dispatch('fetchUser', { username: this.form.username, password: this.form.password })
-        }
-      }
+      error: null
+    };
+  },
+  methods: {
+    login() {
+      this.error = null;  // Reset error message
+      this.$store.dispatch('fetchUser', { username: this.form.username, password: this.form.password })
+        .then(() => {
+          this.$router.push({ name: 'ProductTeamListing' });
+        })
+        .catch(error => {
+          this.error = error.message;
+        });
     }
-  </script>
+  }
+}
+</script>
+
 <style lang="scss" scoped>
-    .login{
-        height: 76.7vh;
-    }
+.login {
+  height: 76.7vh;
+}
 
-    .form-user {
-    width: 400px;
-    margin: 0 auto;
-    }
+.form-user {
+  width: 400px;
+  margin: 0 auto;
+}
 
-    .button {
-    background-color: #f7bc1a;
-    font-weight: bold;
-    margin-top: 20px;
-    }
+.button {
+  background-color: #f7bc1a;
+  font-weight: bold;
+  margin-top: 20px;
+}
 
-
+.error-message {
+  color: red;
+  margin-top: 20px;
+  text-align: center;
+}
 </style>

@@ -4,7 +4,7 @@
       <h1>Introduce los datos de tu equipo</h1>
       <b-form @submit.prevent="login" class="form-team">
         <b-form-group id="input-group-1" label="Equipo:" label-for="input-1">
-          <b-form-select v-model="form.team" :options="teamOptions" required></b-form-select>
+          <b-form-select v-model="form.team" :options="teamOptions" required class="custom-select"></b-form-select>
         </b-form-group>
 
         <b-form-group id="input-group-2" label="Password:" label-for="input-2">
@@ -83,6 +83,40 @@ export default {
 
 .form-team .form-group {
   margin-bottom: 20px;
+}
+
+.custom-select {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  height: auto;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  padding-right: 30px;
+  box-shadow: none;
+}
+
+.custom-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+}
+
+.b-form-input {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  height: auto;
+}
+
+.b-form-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
 }
 
 .button {

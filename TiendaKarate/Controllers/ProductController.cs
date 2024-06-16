@@ -27,38 +27,38 @@ public class ProductController : ControllerBase{
     }
     //Obtencion de los ultimos productos
     [HttpGet]
-        [Route("LastFour")]
-        public ActionResult<List<Product>> GetLastFourProducts()
-        {
-            var lastFourProducts = _context.Products
-                                           .Where(p => p.TeamId == 0) 
-                                           .OrderByDescending(p => p.Id) 
-                                           .Take(4)
-                                           .ToList();
+    [Route("LastFour")]
+    public ActionResult<List<Product>> GetLastFourProducts()
+    {
+        var lastFourProducts = _context.Products
+                                        .Where(p => p.TeamId == 0) 
+                                        .OrderByDescending(p => p.Id) 
+                                        .Take(4)
+                                        .ToList();
 
-            return lastFourProducts.Count == 0 ? NotFound() : Ok(lastFourProducts);
-        }
+        return lastFourProducts.Count == 0 ? NotFound() : Ok(lastFourProducts);
+    }
 
-        // Obtención de 4 productos aleatorios
-        [HttpGet]
-        [Route("RandomFour")]
-        public ActionResult<List<Product>> GetRandomFourProducts()
-        {
-            var randomFourProducts = _context.Products
-                                             .Where(p => p.TeamId == 0) 
-                                             .OrderBy(p => Guid.NewGuid()) 
-                                             .Take(4)
-                                             .ToList();
+    // Obtención de 4 productos aleatorios
+    [HttpGet]
+    [Route("RandomFour")]
+    public ActionResult<List<Product>> GetRandomFourProducts()
+    {
+        var randomFourProducts = _context.Products
+                                            .Where(p => p.TeamId == 0) 
+                                            .OrderBy(p => Guid.NewGuid()) 
+                                            .Take(4)
+                                            .ToList();
 
-            return randomFourProducts.Count == 0 ? NotFound() : Ok(randomFourProducts);
-        }
+        return randomFourProducts.Count == 0 ? NotFound() : Ok(randomFourProducts);
+    }
     // Obtención de productos por nombre parcial
     [HttpGet]
     [Route("PartialName")]
     public ActionResult<List<Product>> GetProductsByPartialName(string partialName)
     {
         var products = _context.Products
-            .Where(p => p.Name.Contains(partialName))
+            .Where(p => p.Name.Contains(partialName) && p.IsActive == true && p.TeamId == 0)
             .ToList();
 
         if (products == null || products.Count == 0)
